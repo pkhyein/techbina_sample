@@ -139,8 +139,41 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;}
 }
 .btn-signup:hover { background: var(--primary-dark); box-shadow: 0 4px 14px rgba(1,122,255,.35); }
 
+/* User Menu */
+.user-menu { position: relative; }
+.user-menu-btn {
+  display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px;
+  border-radius: 8px; border: 1.5px solid var(--border); background: #fff;
+  font-size: 13.5px; font-weight: 600; color: var(--text); transition: all .2s;
+  font-family: inherit;
+}
+.user-menu-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+.user-avatar-small {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: linear-gradient(135deg, #013b8a, #017AFF); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
+}
+.user-menu-dropdown {
+  position: absolute; top: calc(100% + 8px); right: 0; background: #fff;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); padding: 8px; min-width: 160px; display: none; z-index: 200;
+}
+.user-menu-dropdown.active { display: block; }
+.user-menu-dropdown a {
+  display: block; padding: 9px 14px; font-size: 13.5px; color: var(--text-sub);
+  border-radius: 6px; transition: background .15s, color .15s;
+}
+.user-menu-dropdown a:hover { background: var(--primary-light); color: var(--primary); }
+
 /* Mobile hamburger */
 .hamburger { display: none; padding: 8px; color: var(--text); }
+
+/* Hide elements based on login state */
+.show-logged-in { display: none; }
+.show-logged-out { display: flex; }
+
+body.logged-in .show-logged-in { display: flex; }
+body.logged-in .show-logged-out { display: none; }
 
 /* ─── HERO (ROLLING BANNER) ─── */
 #hero {
@@ -622,6 +655,69 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
 .mobile-btns { display: flex; gap: 10px; margin-top: 24px; }
 .mobile-btns button { flex: 1; height: 44px; border-radius: 10px; font-size: 15px; font-weight: 600; }
 
+/* ─── MYPAGE SECTION ─── */
+#mypage { background: var(--bg-soft); }
+.mypage-container { display: grid; grid-template-columns: 240px 1fr; gap: 32px; }
+.mypage-sidebar { background: #fff; border-radius: 14px; padding: 24px; height: fit-content; box-shadow: var(--shadow-sm); }
+.mypage-sidebar-title { font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+.mypage-nav { display: flex; flex-direction: column; gap: 8px; }
+.mypage-nav-item { padding: 12px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--text-sub); cursor: pointer; transition: all .2s; border-left: 3px solid transparent; }
+.mypage-nav-item:hover { background: var(--bg-soft); color: var(--text); }
+.mypage-nav-item.active { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); font-weight: 600; }
+
+.mypage-content { background: #fff; border-radius: 14px; padding: 32px; box-shadow: var(--shadow-sm); }
+.mypage-panel { display: none; }
+.mypage-panel.active { display: block; animation: fade-in .3s ease; }
+
+/* Webinar Registrations */
+.webinar-list { display: flex; flex-direction: column; gap: 20px; }
+.webinar-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; align-items: center; transition: border-color .2s; }
+.webinar-item:hover { border-color: var(--primary); }
+.webinar-item-thumb { width: 120px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #013b8a, #017AFF); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.webinar-item-thumb svg { opacity: .3; }
+.webinar-item-info {}
+.webinar-item-status { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 4px; }
+.webinar-item-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.webinar-item-meta { font-size: 13px; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; }
+.webinar-item-actions { display: flex; gap: 8px; }
+.btn-small { height: 36px; padding: 0 16px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--border); background: #fff; color: var(--text-sub); transition: all .2s; }
+.btn-small:hover { border-color: var(--primary); color: var(--primary); }
+.btn-small.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn-small.primary:hover { background: var(--primary-dark); }
+
+/* Interest Topics */
+.topics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+.topic-card { padding: 20px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 14px; }
+.topic-card:hover { border-color: var(--primary); background: var(--primary-light); }
+.topic-card.selected { background: var(--primary-light); border-color: var(--primary); }
+.topic-card-check { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
+.topic-card.selected .topic-card-check { background: var(--primary); border-color: var(--primary); color: #fff; }
+.topic-card-content {}
+.topic-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.topic-card-desc { font-size: 12px; color: var(--text-muted); }
+
+/* Notification Settings */
+.notification-list { display: flex; flex-direction: column; gap: 16px; }
+.notification-item { display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid var(--border); border-radius: 10px; }
+.notification-info {}
+.notification-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.notification-desc { font-size: 13px; color: var(--text-muted); }
+.toggle-switch { position: relative; width: 48px; height: 28px; border-radius: 14px; background: var(--border); cursor: pointer; transition: background .2s; border: none; }
+.toggle-switch.active { background: var(--primary); }
+.toggle-switch::after { content: ''; position: absolute; width: 24px; height: 24px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: left .2s; }
+.toggle-switch.active::after { left: 22px; }
+
+/* Mypage Header */
+.mypage-header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+.mypage-user-info { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.mypage-user-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #013b8a, #017AFF); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: 700; flex-shrink: 0; }
+.mypage-user-details {}
+.mypage-user-name { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.mypage-user-company { font-size: 13px; color: var(--text-muted); }
+.mypage-user-actions { display: flex; gap: 8px; }
+.mypage-user-actions button { height: 32px; padding: 0 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--border); background: #fff; color: var(--text-sub); cursor: pointer; transition: all .2s; }
+.mypage-user-actions button:hover { border-color: var(--primary); color: var(--primary); }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
   .webinar-grid, .insight-grid { grid-template-columns: repeat(2, 1fr); }
@@ -687,6 +783,8 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
       <div class="gnb-item"><a href="#events">이벤트</a></div>
       <!-- 자료실 -->
       <div class="gnb-item"><a href="#archive">자료실</a></div>
+      <!-- 마이페이지 -->
+      <div class="gnb-item"><a href="#mypage">마이페이지</a></div>
       <!-- 서비스 소개 -->
       <div class="gnb-item">
         서비스 소개
@@ -708,8 +806,22 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
         </button>
         <div class="search-results" id="searchResults"></div>
       </div>
-      <button class="btn-login" onclick="openModal('login')">로그인</button>
-      <button class="btn-signup" onclick="openModal('signup')">회원가입</button>
+      <!-- User Menu (Logged In) -->
+      <div class="user-menu show-logged-in" id="userMenu">
+        <button class="user-menu-btn" onclick="toggleUserMenu()">
+          <div class="user-avatar-small">김</div>
+          <span>김태현</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="user-menu-dropdown" id="userMenuDropdown">
+          <a href="#mypage" onclick="closeUserMenu()">마이페이지</a>
+          <a href="#" onclick="alert('프로필 수정 기능입니다')">프로필 수정</a>
+          <a href="#" onclick="alert('로그아웃 되었습니다'); document.body.classList.remove('logged-in')">로그아웃</a>
+        </div>
+      </div>
+      <!-- Login/Signup Buttons (Not Logged In) -->
+      <button class="btn-login show-logged-out" onclick="openModal('login')">로그인</button>
+      <button class="btn-signup show-logged-out" onclick="openModal('signup')">회원가입</button>
       <button class="hamburger" onclick="openMobileNav()" aria-label="메뉴">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
@@ -736,10 +848,11 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
   <div class="mobile-menu-item"><a href="#insight" onclick="closeMobileNav()" style="color:var(--text)">IT인사이트/보도자료</a></div>
   <div class="mobile-menu-item"><a href="#events" onclick="closeMobileNav()" style="color:var(--text)">이벤트</a></div>
   <div class="mobile-menu-item"><a href="#archive" onclick="closeMobileNav()" style="color:var(--text)">자료실</a></div>
+  <div class="mobile-menu-item"><a href="#mypage" onclick="closeMobileNav()" style="color:var(--text)">마이페이지</a></div>
   <div class="mobile-menu-item"><a href="#service" onclick="closeMobileNav()" style="color:var(--text)">서비스 소개</a></div>
   <div class="mobile-btns">
-    <button class="btn-login" onclick="closeMobileNav();openModal('login')">로그인</button>
-    <button class="btn-signup" onclick="closeMobileNav();openModal('signup')">회원가입</button>
+    <button class="btn-login show-logged-out" onclick="closeMobileNav();openModal('login')">로그인</button>
+    <button class="btn-signup show-logged-out" onclick="closeMobileNav();openModal('signup')">회원가입</button>
   </div>
 </div>
 
@@ -1065,7 +1178,7 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
     <div class="section-header">
       <div class="section-label">Archive</div>
       <h2 class="section-title">자료실</h2>
-      <p class="section-sub">웨비나 핵심 요약본부터 전문 리포트까지, 1분 회원가입으로 모든 발표자료를 무료로 다운로드하세요.</p>
+      <p class="section-sub">웨비나 발표자료와 전문 리포트를 다운로드하세요. 일부 자료는 회원 전용입니다.</p>
     </div>
     <table class="archive-table">
       <thead>
@@ -1130,6 +1243,183 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
           <div class="event-tag">온라인 행사</div>
           <div class="event-title">글로벌 DX 리더스 포럼 2025 – 아시아퍼시픽</div>
           <div class="event-meta">온라인 라이브 스트리밍 · 한·영 동시통역 제공</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MYPAGE SECTION ─── -->
+<section class="section" id="mypage">
+  <div class="section-inner">
+    <div class="mypage-header">
+      <div class="mypage-user-info">
+        <div class="mypage-user-avatar">김</div>
+        <div class="mypage-user-details">
+          <div class="mypage-user-name">김태현</div>
+          <div class="mypage-user-company">삼성전자 · IT전략팀 · 수석 연구원</div>
+        </div>
+        <div class="mypage-user-actions" style="margin-left:auto">
+          <button onclick="alert('프로필 수정 기능입니다')">프로필 수정</button>
+          <button onclick="alert('로그아웃 되었습니다')">로그아웃</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mypage-container">
+      <!-- Sidebar -->
+      <div class="mypage-sidebar">
+        <div class="mypage-sidebar-title">마이페이지</div>
+        <div class="mypage-nav">
+          <div class="mypage-nav-item active" onclick="switchMypageTab('registrations',this)">웨비나 신청 내역</div>
+          <div class="mypage-nav-item" onclick="switchMypageTab('topics',this)">관심 토픽 설정</div>
+          <div class="mypage-nav-item" onclick="switchMypageTab('notifications',this)">알림 관리</div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="mypage-content">
+        <!-- Registrations Panel -->
+        <div class="mypage-panel active" id="mypage-registrations">
+          <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:24px">웨비나 신청 내역</h3>
+          <div class="webinar-list">
+            <div class="webinar-item">
+              <div class="webinar-item-thumb">
+                <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="35" stroke="white" stroke-width="2" stroke-dasharray="6 4"/><path d="M30 40l8 8 12-14" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="webinar-item-info">
+                <div class="webinar-item-status">진행 예정</div>
+                <div class="webinar-item-title">생성형 AI 도입 전략과 실제 적용 사례 분석</div>
+                <div class="webinar-item-meta">
+                  <span>2025.07.15 (화) 14:00</span>
+                  <span>발표자: 김태현 수석 연구원</span>
+                  <span>AI &amp; Data</span>
+                </div>
+              </div>
+              <div class="webinar-item-actions">
+                <button class="btn-small">신청 취소</button>
+                <button class="btn-small primary">상세보기</button>
+              </div>
+            </div>
+
+            <div class="webinar-item">
+              <div class="webinar-item-thumb" style="background:linear-gradient(135deg,#024f94,#0099ff)">
+                <svg viewBox="0 0 80 80" fill="none"><path d="M20 30h40v30H20z" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M30 45l10 10 20-20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="webinar-item-info">
+                <div class="webinar-item-status">진행 중</div>
+                <div class="webinar-item-title">엔터프라이즈 DX 성공 전략과 ROI 측정 프레임워크</div>
+                <div class="webinar-item-meta">
+                  <span>현재 진행 중</span>
+                  <span>발표자: 최영훈 CTO</span>
+                  <span>디지털 전환</span>
+                </div>
+              </div>
+              <div class="webinar-item-actions">
+                <button class="btn-small primary">지금 시청</button>
+                <button class="btn-small">상세보기</button>
+              </div>
+            </div>
+
+            <div class="webinar-item">
+              <div class="webinar-item-thumb" style="background:linear-gradient(135deg,#024f94,#017AFF)">
+                <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="30" stroke="white" stroke-width="2"/><path d="M40 20v40M20 40h40" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="webinar-item-info">
+                <div class="webinar-item-status">다시보기</div>
+                <div class="webinar-item-title">LLM 기반 기업 내부 지식관리 시스템 구축 전략</div>
+                <div class="webinar-item-meta">
+                  <span>2025.06.10</span>
+                  <span>총 시청 2,841명</span>
+                  <span>AI &amp; Data</span>
+                </div>
+              </div>
+              <div class="webinar-item-actions">
+                <button class="btn-small primary">다시보기</button>
+                <button class="btn-small">상세보기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topics Panel -->
+        <div class="mypage-panel" id="mypage-topics">
+          <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px">관심 토픽 설정</h3>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:24px">관심 있는 토픽을 선택하면 관련 웨비나와 인사이트를 우선적으로 받아볼 수 있습니다.</p>
+          <div class="topics-grid">
+            <div class="topic-card selected" onclick="toggleTopic(this)">
+              <div class="topic-card-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="topic-card-content">
+                <div class="topic-card-title">AI &amp; Data</div>
+                <div class="topic-card-desc">생성형 AI, 머신러닝, 데이터 분석</div>
+              </div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-card-check"></div>
+              <div class="topic-card-content">
+                <div class="topic-card-title">클라우드</div>
+                <div class="topic-card-desc">AWS, Azure, GCP, 멀티클라우드</div>
+              </div>
+            </div>
+            <div class="topic-card selected" onclick="toggleTopic(this)">
+              <div class="topic-card-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="topic-card-content">
+                <div class="topic-card-title">보안</div>
+                <div class="topic-card-desc">사이버 보안, ISMS, 제로 트러스트</div>
+              </div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-card-check"></div>
+              <div class="topic-card-content">
+                <div class="topic-card-title">디지털 전환(DX)</div>
+                <div class="topic-card-desc">기업 DX 전략, 디지털 혁신</div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-modal-submit" style="width:auto;margin-top:32px" onclick="alert('관심 토픽이 저장되었습니다')">저장하기</button>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="mypage-panel" id="mypage-notifications">
+          <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:24px">알림 관리</h3>
+          <div class="notification-list">
+            <div class="notification-item">
+              <div class="notification-info">
+                <div class="notification-title">웨비나 예정 알림</div>
+                <div class="notification-desc">신청한 웨비나 시작 1시간 전에 알림을 받습니다</div>
+              </div>
+              <button class="toggle-switch active" onclick="toggleNotification(this)"></button>
+            </div>
+            <div class="notification-item">
+              <div class="notification-info">
+                <div class="notification-title">관심 토픽 신규 콘텐츠</div>
+                <div class="notification-desc">설정한 관심 토픽의 새로운 웨비나와 인사이트가 등록되면 알림을 받습니다</div>
+              </div>
+              <button class="toggle-switch active" onclick="toggleNotification(this)"></button>
+            </div>
+            <div class="notification-item">
+              <div class="notification-info">
+                <div class="notification-title">주간 뉴스레터</div>
+                <div class="notification-desc">매주 월요일 오전 9시에 주간 IT 인사이트와 웨비나 추천 정보를 받습니다</div>
+              </div>
+              <button class="toggle-switch active" onclick="toggleNotification(this)"></button>
+            </div>
+            <div class="notification-item">
+              <div class="notification-info">
+                <div class="notification-title">마케팅 이메일</div>
+                <div class="notification-desc">테크비나의 새로운 서비스, 이벤트, 프로모션 정보를 받습니다</div>
+              </div>
+              <button class="toggle-switch" onclick="toggleNotification(this)"></button>
+            </div>
+            <div class="notification-item">
+              <div class="notification-info">
+                <div class="notification-title">푸시 알림</div>
+                <div class="notification-desc">모바일 앱에서 실시간 알림을 받습니다</div>
+              </div>
+              <button class="toggle-switch active" onclick="toggleNotification(this)"></button>
+            </div>
+          </div>
+          <button class="btn-modal-submit" style="width:auto;margin-top:32px" onclick="alert('알림 설정이 저장되었습니다')">저장하기</button>
         </div>
       </div>
     </div>
@@ -1429,6 +1719,46 @@ function updateHeroSlide() {
 setInterval(() => {
   heroSlide(1);
 }, 8000);
+
+// ─── USER MENU ───
+function toggleUserMenu() {
+  const dropdown = document.getElementById('userMenuDropdown');
+  dropdown.classList.toggle('active');
+}
+
+function closeUserMenu() {
+  document.getElementById('userMenuDropdown').classList.remove('active');
+}
+
+document.addEventListener('click', function(e) {
+  const userMenu = document.getElementById('userMenu');
+  if (userMenu && !userMenu.contains(e.target)) {
+    closeUserMenu();
+  }
+});
+
+// Initialize logged-in state
+window.addEventListener('load', function() {
+  document.body.classList.add('logged-in');
+});
+
+// ─── MYPAGE TAB ───
+function switchMypageTab(tab, btn) {
+  document.querySelectorAll('.mypage-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('mypage-' + tab).classList.add('active');
+  if (btn) {
+    btn.closest('.mypage-nav').querySelectorAll('.mypage-nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+function toggleTopic(card) {
+  card.classList.toggle('selected');
+}
+
+function toggleNotification(btn) {
+  btn.classList.toggle('active');
+}
 
 // ─── TABS ───
 function switchTab(section, tab, btn) {
