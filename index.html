@@ -175,56 +175,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;}
 body.logged-in .show-logged-in { display: flex; }
 body.logged-in .show-logged-out { display: none; }
 
-/* ─── MEGA MENU ─── */
-.menu-toggle-btn {
-  display: flex; align-items: center; gap: 6px;
-  height: 36px; padding: 0 12px; border-radius: 8px;
-  border: 1.5px solid var(--border); background: #fff;
-  font-size: 13.5px; font-weight: 600; color: var(--text-sub);
-  transition: all .2s; cursor: pointer; font-family: inherit;
-}
-.menu-toggle-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-.menu-toggle-btn svg { transition: transform .3s; }
-.menu-toggle-btn.active svg { transform: rotate(180deg); }
-
-.mega-menu-overlay {
-  position: fixed; inset: 0; z-index: 950;
-  background: rgba(0,0,0,.3); backdrop-filter: blur(4px);
-  display: none; opacity: 0; transition: opacity .3s ease;
-}
-.mega-menu-overlay.active { display: block; opacity: 1; }
-
-.mega-menu {
-  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 950;
-  background: #fff; border-bottom: 1px solid var(--border);
-  max-height: calc(100vh - var(--header-h)); overflow-y: auto;
-  transform: translateY(-100%); opacity: 0; transition: all .3s cubic-bezier(.34,.69,.64,1);
-}
-.mega-menu.active { transform: translateY(0); opacity: 1; }
-
-.mega-menu-inner {
-  max-width: 1280px; margin: 0 auto; padding: 40px 24px;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;
-}
-
-.mega-menu-section { padding: 0; }
-.mega-menu-title {
-  font-size: 15px; font-weight: 700; color: var(--text);
-  margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--primary);
-}
-.mega-menu-list { display: flex; flex-direction: column; gap: 0; }
-.mega-menu-item {
-  padding: 10px 0; font-size: 14px; color: var(--text-sub);
-  transition: color .2s, padding-left .2s; cursor: pointer;
-}
-.mega-menu-item:hover { color: var(--primary); padding-left: 8px; }
-.mega-menu-item a { color: inherit; text-decoration: none; display: block; }
-
-@media (max-width: 768px) {
-  .menu-toggle-btn { display: none; }
-  .mega-menu-inner { grid-template-columns: 1fr; gap: 24px; }
-}
-
 /* ─── HERO (ROLLING BANNER) ─── */
 #hero {
   margin-top: var(--header-h);
@@ -768,6 +718,125 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
 .mypage-user-actions button { height: 32px; padding: 0 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--border); background: #fff; color: var(--text-sub); cursor: pointer; transition: all .2s; }
 .mypage-user-actions button:hover { border-color: var(--primary); color: var(--primary); }
 
+/* ─── 전체 메뉴 버튼 ─── */
+.btn-all-menu {
+  display: flex; align-items: center; gap: 4px;
+  height: 28px; padding: 0 10px; border-radius: 5px;
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  border: 1px solid var(--border); background: var(--bg-soft);
+  white-space: nowrap; transition: all .2s; flex-shrink: 0;
+  letter-spacing: -.3px;
+}
+.btn-all-menu:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.btn-all-menu svg { flex-shrink: 0; }
+
+/* ─── MEGA MENU OVERLAY ─── */
+.mega-overlay {
+  position: fixed; inset: 0; z-index: 950;
+  background: rgba(10, 20, 50, .55);
+  backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.mega-overlay.active { opacity: 1; pointer-events: all; }
+
+.mega-menu {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 960;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0,0,0,.18);
+  transform: translateY(-100%);
+  transition: transform .38s cubic-bezier(.4,0,.2,1);
+  max-height: 92vh; overflow-y: auto;
+}
+.mega-menu.active { transform: translateY(0); }
+
+.mega-menu-header {
+  background: linear-gradient(135deg, #011f4f 0%, #013b8a 55%, #017AFF 100%);
+  padding: 18px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 2;
+}
+.mega-menu-logo {
+  font-size: 20px; font-weight: 800; letter-spacing: -1px;
+  color: #fff;
+}
+.mega-menu-logo span { color: rgba(255,255,255,.65); }
+.mega-menu-close {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  transition: background .2s; cursor: pointer;
+}
+.mega-menu-close:hover { background: rgba(255,255,255,.28); }
+
+.mega-menu-body {
+  padding: 32px 32px 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.mega-col {
+  padding: 0 28px 0 0;
+  border-right: 1px solid var(--border);
+}
+.mega-col:last-child { border-right: none; padding-right: 0; padding-left: 28px; }
+.mega-col:first-child { padding-left: 0; }
+.mega-col:not(:first-child):not(:last-child) { padding-left: 28px; }
+
+.mega-col-label {
+  font-size: 14px; font-weight: 800; letter-spacing: .3px;
+  color: var(--primary); margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.mega-col-title {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  margin-bottom: 4px; margin-top: 18px; line-height: 1.3;
+}
+.mega-col-title:first-of-type { margin-top: 0; }
+
+.mega-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; margin: 2px -10px;
+  font-size: 13.5px; color: var(--text-sub);
+  border-radius: 7px; transition: background .15s, color .15s;
+  line-height: 1.4;
+}
+.mega-link:hover { background: var(--primary-light); color: var(--primary); }
+.mega-link-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border); flex-shrink: 0;
+  transition: background .15s;
+}
+.mega-link:hover .mega-link-dot { background: var(--primary); }
+
+.mega-featured {
+  background: var(--bg-alt); border-radius: 12px; padding: 18px;
+  margin-top: 4px;
+}
+.mega-featured-badge {
+  font-size: 9.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--primary); background: var(--primary-light);
+  padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px;
+}
+.mega-featured-title {
+  font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.45; margin-bottom: 6px;
+}
+.mega-featured-meta { font-size: 11.5px; color: var(--text-muted); }
+.mega-featured + .mega-featured { margin-top: 10px; }
+
+.mega-cta-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; height: 38px; border-radius: 8px;
+  font-size: 13px; font-weight: 700;
+  background: var(--primary); color: #fff;
+  transition: background .2s, box-shadow .2s;
+  margin-top: 14px;
+  box-shadow: 0 2px 8px rgba(1,122,255,.25);
+}
+.mega-cta-btn:hover { background: var(--primary-dark); box-shadow: 0 4px 14px rgba(1,122,255,.35); }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
   .webinar-grid, .insight-grid { grid-template-columns: repeat(2, 1fr); }
@@ -808,9 +877,9 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
 
     <nav class="gnb">
       <!-- 웨비나 -->
-      <div class="gnb-item" onclick="event.stopPropagation()">
-        <a href="#webinar" style="display:flex;align-items:center;gap:3px;color:inherit">웨비나
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="gnb-item">
+        웨비나
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="dropdown">
           <a href="#webinar" onclick="switchTab('webinar','upcoming'); closeMobileNav();">진행 예정</a>
           <a href="#webinar" onclick="switchTab('webinar','live'); closeMobileNav();">진행 중</a>
@@ -818,9 +887,9 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
         </div>
       </div>
       <!-- IT인사이트 -->
-      <div class="gnb-item" onclick="event.stopPropagation()">
-        <a href="#insight" style="display:flex;align-items:center;gap:3px;color:inherit">IT인사이트/보도자료
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="gnb-item">
+        IT인사이트/보도자료
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="dropdown">
           <a href="#insight" onclick="filterInsight('all')">전체</a>
           <a href="#insight" onclick="filterInsight('ai')">AI &amp; Data</a>
@@ -834,9 +903,9 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
       <!-- 자료실 -->
       <div class="gnb-item"><a href="#archive">자료실</a></div>
       <!-- 서비스 소개 -->
-      <div class="gnb-item" onclick="event.stopPropagation()">
-        <a href="#service" style="display:flex;align-items:center;gap:3px;color:inherit">서비스 소개
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="gnb-item">
+        서비스 소개
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="dropdown">
           <a href="#service">서비스 소개</a>
           <a href="#service">스튜디오 소개</a>
@@ -854,11 +923,6 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
         </button>
         <div class="search-results" id="searchResults"></div>
       </div>
-      <!-- Menu Toggle Button -->
-      <button class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleMegaMenu()">
-        <span>전체 메뉴</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
       <!-- User Menu (Logged In) -->
       <div class="user-menu show-logged-in" id="userMenu">
         <button class="user-menu-btn" onclick="toggleUserMenu()">
@@ -875,64 +939,17 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
       <!-- Login/Signup Buttons (Not Logged In) -->
       <button class="btn-login show-logged-out" onclick="openModal('login')">로그인</button>
       <button class="btn-signup show-logged-out" onclick="openModal('signup')">회원가입</button>
+      <!-- 전체 메뉴 펼치기 -->
+      <button class="btn-all-menu" onclick="openMegaMenu()" aria-label="전체 메뉴 펼치기">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="0" y="0" width="3.5" height="3.5" rx=".7" fill="currentColor"/><rect x="4.25" y="0" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".6"/><rect x="8.5" y="0" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".4"/><rect x="0" y="4.25" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".6"/><rect x="4.25" y="4.25" width="3.5" height="3.5" rx=".7" fill="currentColor"/><rect x="8.5" y="4.25" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".6"/><rect x="0" y="8.5" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".4"/><rect x="4.25" y="8.5" width="3.5" height="3.5" rx=".7" fill="currentColor" opacity=".6"/><rect x="8.5" y="8.5" width="3.5" height="3.5" rx=".7" fill="currentColor"/></svg>
+        전체메뉴
+      </button>
       <button class="hamburger" onclick="openMobileNav()" aria-label="메뉴">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
 </header>
-
-<!-- ─── MEGA MENU ─── -->
-<div class="mega-menu-overlay" id="megaMenuOverlay" onclick="closeMegaMenu()"></div>
-<div class="mega-menu" id="megaMenu">
-  <div class="mega-menu-inner">
-    <!-- 웨비나 -->
-    <div class="mega-menu-section">
-      <div class="mega-menu-title">웨비나</div>
-      <div class="mega-menu-list">
-        <div class="mega-menu-item"><a href="#webinar" onclick="switchTab('webinar','upcoming');closeMegaMenu()">\uc9c4행 예정</a></div>
-        <div class="mega-menu-item"><a href="#webinar" onclick="switchTab('webinar','live');closeMegaMenu()">진행 중</a></div>
-        <div class="mega-menu-item"><a href="#webinar" onclick="switchTab('webinar','replay');closeMegaMenu()">다시보기</a></div>
-      </div>
-    </div>
-    <!-- IT인사이트/보도자료 -->
-    <div class="mega-menu-section">
-      <div class="mega-menu-title">IT인사이트</div>
-      <div class="mega-menu-list">
-        <div class="mega-menu-item"><a href="#insight" onclick="filterInsight('all');closeMegaMenu()">전체</a></div>
-        <div class="mega-menu-item"><a href="#insight" onclick="filterInsight('ai');closeMegaMenu()">AI &amp; Data</a></div>
-        <div class="mega-menu-item"><a href="#insight" onclick="filterInsight('cloud');closeMegaMenu()">클라우드</a></div>
-        <div class="mega-menu-item"><a href="#insight" onclick="filterInsight('sec');closeMegaMenu()">보안</a></div>
-        <div class="mega-menu-item"><a href="#insight" onclick="filterInsight('dx');closeMegaMenu()">디지털 전환(DX)</a></div>
-      </div>
-    </div>
-    <!-- 이벤트 -->
-    <div class="mega-menu-section">
-      <div class="mega-menu-title">이벤트</div>
-      <div class="mega-menu-list">
-        <div class="mega-menu-item"><a href="#events" onclick="closeMegaMenu()">기업 이벤트</a></div>
-        <div class="mega-menu-item"><a href="#events" onclick="closeMegaMenu()">스폰서십</a></div>
-      </div>
-    </div>
-    <!-- 자료실 -->
-    <div class="mega-menu-section">
-      <div class="mega-menu-title">자료실</div>
-      <div class="mega-menu-list">
-        <div class="mega-menu-item"><a href="#archive" onclick="closeMegaMenu()">발표자료</a></div>
-        <div class="mega-menu-item"><a href="#archive" onclick="closeMegaMenu()">레포트</a></div>
-      </div>
-    </div>
-    <!-- 서비스 소개 -->
-    <div class="mega-menu-section">
-      <div class="mega-menu-title">서비스</div>
-      <div class="mega-menu-list">
-        <div class="mega-menu-item"><a href="#service" onclick="closeMegaMenu()">서비스 소개</a></div>
-        <div class="mega-menu-item"><a href="#service" onclick="closeMegaMenu()">스튜디오 소개</a></div>
-        <div class="mega-menu-item"><a href="#" onclick="openModal('consult');closeMegaMenu()">문의</a></div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ─── MOBILE NAV ─── -->
 <div class="mobile-nav" id="mobileNav">
@@ -959,6 +976,85 @@ footer { background: #0d1117; color: #fff; padding: 80px 24px 40px; }
     <button class="btn-signup show-logged-out" onclick="closeMobileNav();openModal('signup')">회원가입</button>
   </div>
 </div>
+
+<!-- ─── MEGA MENU ─── -->
+<div class="mega-overlay" id="megaOverlay" onclick="closeMegaMenu()"></div>
+<div class="mega-menu" id="megaMenu" role="dialog" aria-label="전체 메뉴">
+  <div class="mega-menu-header">
+    <div class="mega-menu-logo">Tech<span>binar</span></div>
+    <button class="mega-menu-close" onclick="closeMegaMenu()" aria-label="닫기">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="mega-menu-body">
+
+    <!-- 웨비나 -->
+    <div class="mega-col">
+      <div class="mega-col-label">웨비나</div>
+      <a class="mega-link" href="#webinar" onclick="switchTab('webinar','upcoming');closeMegaMenu()">
+        <span class="mega-link-dot"></span>진행 예정
+      </a>
+      <a class="mega-link" href="#webinar" onclick="switchTab('webinar','live');closeMegaMenu()">
+        <span class="mega-link-dot"></span>진행 중
+      </a>
+      <a class="mega-link" href="#webinar" onclick="switchTab('webinar','replay');closeMegaMenu()">
+        <span class="mega-link-dot"></span>다시보기
+      </a>
+    </div>
+
+    <!-- IT인사이트 -->
+    <div class="mega-col">
+      <div class="mega-col-label">IT인사이트 / 보도자료</div>
+      <a class="mega-link" href="#insight" onclick="filterInsight('all');closeMegaMenu()">
+        <span class="mega-link-dot"></span>전체
+      </a>
+      <a class="mega-link" href="#insight" onclick="filterInsight('ai');closeMegaMenu()">
+        <span class="mega-link-dot"></span>AI &amp; Data
+      </a>
+      <a class="mega-link" href="#insight" onclick="filterInsight('cloud');closeMegaMenu()">
+        <span class="mega-link-dot"></span>클라우드
+      </a>
+      <a class="mega-link" href="#insight" onclick="filterInsight('sec');closeMegaMenu()">
+        <span class="mega-link-dot"></span>보안
+      </a>
+      <a class="mega-link" href="#insight" onclick="filterInsight('dx');closeMegaMenu()">
+        <span class="mega-link-dot"></span>디지털 전환(DX)
+      </a>
+    </div>
+
+    <!-- 이벤트 -->
+    <div class="mega-col">
+      <div class="mega-col-label">이벤트</div>
+      <a class="mega-link" href="#events" onclick="closeMegaMenu()">
+        <span class="mega-link-dot"></span>이벤트
+      </a>
+    </div>
+
+    <!-- 자료실 -->
+    <div class="mega-col">
+      <div class="mega-col-label">자료실</div>
+      <a class="mega-link" href="#archive" onclick="closeMegaMenu()">
+        <span class="mega-link-dot"></span>자료실
+      </a>
+    </div>
+
+    <!-- 서비스 소개 -->
+    <div class="mega-col">
+      <div class="mega-col-label">서비스 소개</div>
+      <a class="mega-link" href="#service" onclick="closeMegaMenu()">
+        <span class="mega-link-dot"></span>서비스 소개
+      </a>
+      <a class="mega-link" href="#service" onclick="closeMegaMenu()">
+        <span class="mega-link-dot"></span>스튜디오 소개
+      </a>
+      <a class="mega-link" href="#" onclick="openModal('consult');closeMegaMenu()">
+        <span class="mega-link-dot"></span>문의
+      </a>
+    </div>
+
+  </div><!-- /mega-menu-body -->
+</div><!-- /mega-menu -->
 
 <!-- ─── HERO (ROLLING BANNER) ─── -->
 <section id="hero">
@@ -1824,34 +1920,6 @@ setInterval(() => {
   heroSlide(1);
 }, 8000);
 
-// ─── MEGA MENU ───
-function toggleMegaMenu() {
-  const megaMenu = document.getElementById('megaMenu');
-  const megaMenuOverlay = document.getElementById('megaMenuOverlay');
-  const menuToggleBtn = document.getElementById('menuToggleBtn');
-  
-  megaMenu.classList.toggle('active');
-  megaMenuOverlay.classList.toggle('active');
-  menuToggleBtn.classList.toggle('active');
-  
-  if (megaMenu.classList.contains('active')) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
-  }
-}
-
-function closeMegaMenu() {
-  const megaMenu = document.getElementById('megaMenu');
-  const megaMenuOverlay = document.getElementById('megaMenuOverlay');
-  const menuToggleBtn = document.getElementById('menuToggleBtn');
-  
-  megaMenu.classList.remove('active');
-  megaMenuOverlay.classList.remove('active');
-  menuToggleBtn.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
 // ─── USER MENU ───
 function toggleUserMenu() {
   const dropdown = document.getElementById('userMenuDropdown');
@@ -1870,6 +1938,18 @@ document.addEventListener('click', function(e) {
 });
 
 // Initialize logged-in state
+// ─── MEGA MENU ───
+function openMegaMenu() {
+  document.getElementById('megaMenu').classList.add('active');
+  document.getElementById('megaOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeMegaMenu() {
+  document.getElementById('megaMenu').classList.remove('active');
+  document.getElementById('megaOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 window.addEventListener('load', function() {
   document.body.classList.add('logged-in');
 });
@@ -2023,7 +2103,7 @@ document.addEventListener('click', function(e) {
 });
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeModal(); searchResults.classList.remove('active'); closeMobileNav(); }
+  if (e.key === 'Escape') { closeModal(); searchResults.classList.remove('active'); closeMobileNav(); closeMegaMenu(); }
 });
 
 // ─── MOBILE NAV ───
